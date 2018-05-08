@@ -137,15 +137,20 @@ var csv='data/points.csv'
 renderCSV(csv);
 
 function restart(){
-	var current_month=years[Math.round(x.invert(jQuery(".handle").attr("cx"))/dx)];
-	console.log(current_month);
+	var current_date=years[Math.round(x.invert(jQuery(".handle").attr("cx"))/dx)];
+	var format=d3.timeFormat("%B");
+	var current_month=format(current_date); 
+	var csv="data/"+String(current_month)+".csv"
+	//console.log(csv);
+	renderCSV(csv);
 }
 
 d3.interval(function(){
 	restart();
-},150)
+},1000)
 
 function renderCSV(csv){
+	console.log(csv);
 	d3.csv(csv,function(data){
 	    var points=[]
 	    var X=[]
